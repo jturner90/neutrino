@@ -44,7 +44,6 @@ int main(int argc, char * argv[]) {
     bool norad     = ops >> Present("norad", "switch off photon radiation");
     bool nospincorr  = ops >> Present("nospincorr", "switch off spin correlation radiation");
     bool verbose     = ops >> Present('v', "verbose", "verbose output");
-    bool quiet       = ops >> Present('q', "quiet", "least verbose mode");
     bool tauplus     = ops >> Present('p', "tauplus", "Treat taus as tau+");
     ops >> Option('m', "mode",   mode,   "Tauolo decay mode");
     ops >> Option('n', "nmax",   nmax,   "Max number of events to generate");
@@ -70,7 +69,7 @@ int main(int argc, char * argv[]) {
     auto [eventids, taus] = convert(data);
 
     int nevents = taus.rows();
-    if (nmax>0 & nmax < nevents) {
+    if ( (nmax>0) &&  (nmax < nevents)) {
       nevents = nmax;
     }
     std::cout << "Processing " << nevents << " tau events\n";
@@ -87,7 +86,7 @@ int main(int argc, char * argv[]) {
 
     if (verbose) tauola_print_parameters(); // Prints TAUOLA  parameters (residing inside its library): e.g. to test user interface
     
-    const double tau_mass = parmas_.amtau;
+    //const double tau_mass = parmas_.amtau;
     
     std::fstream fout;
     // Open the file in truncate mode if first line else in Append Mode
